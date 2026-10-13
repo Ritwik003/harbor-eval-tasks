@@ -1,0 +1,33 @@
+schema_version = "1.4"
+
+[task]
+name = "harbor-eval/report-cache-scoping"
+version = "1.0.0"
+description = "Diagnose and resolve a cache-key collision that causes region-scoped reports to return another region's data, without removing the cache."
+keywords = ["debugging", "root-cause-analysis", "caching", "regression", "python"]
+
+[metadata]
+evaluation_objective = "Evaluate whether the agent can trace a data-correctness symptom to a cache-key defect in a different module, and apply a minimal general fix that preserves the caching behaviour the system depends on."
+capability = "Root cause analysis across module boundaries under an explicit preservation constraint"
+difficulty = "medium"
+difficulty_explanation = "The symptom appears in the report layer; the cause is in the key builder. The cheapest fixes (disable the cache, bypass it for region queries, add 'region' to the field whitelist) all pass the visible failing test and are individually detected by the rubric."
+category = "software-engineering"
+shortcuts_detected = [
+  "removing or bypassing the cache",
+  "special-casing region queries to skip the cache",
+  "deleting, skipping or weakening the failing repository test",
+  "patching only the named parameter instead of the key construction",
+]
+signals = "Per-criterion scores separate a correct minimal fix from a superficial one that merely turns the failing test green."
+scoring = "per-rubric-criterion partial credit"
+
+[agent]
+timeout_sec = 1800.0
+
+[verifier]
+timeout_sec = 300.0
+
+[environment]
+build_timeout_sec = 900.0
+cpus = 2
+memory_mb = 2048

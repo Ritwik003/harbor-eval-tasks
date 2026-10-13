@@ -1,0 +1,33 @@
+schema_version = "1.4"
+
+[task]
+name = "harbor-eval/exporter-extension-point"
+version = "1.0.0"
+description = "Add a new export format to a plugin-based pipeline by locating and using the existing extension point rather than special-casing the dispatcher."
+keywords = ["repository-comprehension", "feature-implementation", "plugin-architecture", "python"]
+
+[metadata]
+evaluation_objective = "Evaluate whether the agent can understand an unfamiliar repository, identify the correct extension point for a new feature, and implement it to a precise specification without disturbing the existing dispatch path."
+capability = "Repository comprehension and implementation planning under an architectural constraint"
+difficulty = "medium"
+difficulty_explanation = "The feature is easy to make work and easy to make work the wrong way. Registration is a two-step pattern (subclass plus side-effect import) that is only visible by reading the package. The escaping rules give the specification real edge cases."
+category = "software-engineering"
+shortcuts_detected = [
+  "adding an if/elif branch to pipeline/cli.py instead of registering",
+  "bypassing the Exporter base class",
+  "registering under a name the CLI cannot reach",
+  "weakening the repository test suite",
+]
+signals = "extension_point_used separates an agent that read the architecture from one that made the output correct by the shortest route."
+scoring = "per-rubric-criterion partial credit"
+
+[agent]
+timeout_sec = 1800.0
+
+[verifier]
+timeout_sec = 300.0
+
+[environment]
+build_timeout_sec = 900.0
+cpus = 2
+memory_mb = 2048

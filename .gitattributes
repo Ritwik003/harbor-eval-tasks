@@ -1,0 +1,9 @@
+# Everything in this repo runs inside Linux containers. Keep LF on checkout,
+# regardless of the host — CRLF would break the shell scripts Harbor executes.
+* text=auto eol=lf
+
+*.sh    text eol=lf
+*.py    text eol=lf
+*.toml  text eol=lf
+*.md    text eol=lf
+Dockerfile text eol=lf
